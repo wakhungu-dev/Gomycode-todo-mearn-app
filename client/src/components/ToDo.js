@@ -7,7 +7,7 @@ import "react-crud-icons/dist/css/react-crud-icons.css";
  * @param {Object} props - The props object containing the text, updateMode, and deleteToDo functions.
  * @returns {JSX.Element} The ToDo component.
  */
-const ToDo = ({ text, updateMode, deleteToDo }) => {
+const ToDo = ({ text, updateMode, deleteToDo, completed, toggleCompleted }) => {
     return (
         <div className="flex justify-between items-center bg-gray-50 p-4 border rounded-lg shadow-sm">
             <span className="text">{text}</span>

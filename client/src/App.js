@@ -35,10 +35,33 @@ function App() {
     if (isUpdating) {
       // Update the todo
       updateToDo(toDoListId, text, setToDoList, setText, setIsUpdating);
+      alert("Task updated!");
     } else {
       // Add a new todo
       addToDo(text, setText, setToDoList);
+      alert("Task added!");
     }
+  };
+
+  /**
+   * Handles marking a todo as completed or not completed.
+   * @param {string} id - The id of the todo to toggle completion.
+   */
+  const toggleComplete = (id) => {
+    setToDoList(
+      toDoList.map((task) =>
+        task._id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  };
+
+  /**
+   * Handles deleting a todo.
+   * @param {string} id - The id of the todo to delete.
+   */
+  const handleDeleteToDo = (id) => {
+    deleteToDo(id, setToDoList);
+    alert("Task deleted!");
   };
 
   return (
@@ -65,8 +88,10 @@ function App() {
             <ToDo 
               key={item._id} 
               text={item.text}
+              completed={item.completed}
+              toggleComplete={() => toggleComplete(item._id)}
               updateMode={() => updateMode(item._id, item.text)} 
-              deleteToDo={() => deleteToDo(item._id, setToDoList)}
+              deleteToDo={() => handleDeleteToDo(item._id)}
             />
           ))}
         </div>
