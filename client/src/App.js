@@ -66,38 +66,40 @@ function App() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="container bg-white shadow-md rounded-lg p-6 max-w-md w-full">
-        <h1 className="text-3xl font-bold mb-4 text-center">ToDo App</h1>
-        <div className="top flex mb-4">
-          <input
-            type="text"
-            placeholder="Add a task..."
-            className="flex-grow px-4 py-2 border rounded-l-lg focus:outline-none"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-          />
-          <button
-            className="px-4 py-2 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600"
-            onClick={handleAddOrUpdate}
-          >
-            {isUpdating ? "Update" : "Add"}
-          </button>
+        <div className="container bg-white shadow-md rounded-lg p-6 max-w-md w-full">
+            <h1 className="text-3xl font-bold mb-4 text-center">ToDo App</h1>
+            <div className="top flex mb-4">
+                <input
+                    type="text"
+                    placeholder="Add a task..."
+                    className="flex-grow px-4 py-2 border rounded-l-lg focus:outline-none"
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
+                />
+                <button
+                    className="px-4 py-2 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600"
+                    onClick={handleAddOrUpdate}
+                >
+                    {isUpdating ? "Update" : "Add"}
+                </button>
+            </div>
+            {/* Set a fixed height for the list and enable scrolling */}
+            <div className="list space-y-2 h-64 overflow-y-auto">
+                {toDoList.map((item) => (
+                    <ToDo
+                        key={item._id}
+                        text={item.text}
+                        completed={item.completed}
+                        toggleComplete={() => toggleComplete(item._id)}
+                        updateMode={() => updateMode(item._id, item.text)}
+                        deleteToDo={() => handleDeleteToDo(item._id)}
+                    />
+                ))}
+            </div>
         </div>
-        <div className="list space-y-2">
-          {toDoList.map((item) => (
-            <ToDo 
-              key={item._id} 
-              text={item.text}
-              completed={item.completed}
-              toggleComplete={() => toggleComplete(item._id)}
-              updateMode={() => updateMode(item._id, item.text)} 
-              deleteToDo={() => handleDeleteToDo(item._id)}
-            />
-          ))}
-        </div>
-      </div>
     </div>
-  );
+);
+
 }
 
 export default App;
